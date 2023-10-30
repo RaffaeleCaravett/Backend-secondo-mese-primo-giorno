@@ -26,6 +26,14 @@ public class Pizza extends MenuItem {
         this.toppings=toppings;
     }
 
+    public List<Toppings> getToppings() {
+        return toppings;
+    }
+
+    public void setToppings(List<Toppings> toppings) {
+        this.toppings = toppings;
+    }
+
     public String toString() {
         return "Pizza{" +
                 "\n  nome='" + getName() + '\'' +

@@ -27,6 +27,9 @@ configurationClass();
 			pizze.add((Pizza) ctx.getBean("getPizzaMargherita"));
 			pizze.add((Pizza) ctx.getBean("getPizzaProsciutto"));
 			pizze.add((Pizza) ctx.getBean("getPizzaAmericana"));
+			pizze.add((Pizza) ctx.getBean("getPizzaMargheritaMaxi"));
+			pizze.add((Pizza) ctx.getBean("getPizzaProsciuttoMaxi"));
+			pizze.add((Pizza) ctx.getBean("getPizzaAmericanaMaxi"));
 
 			List<Toppings> toppings = new ArrayList<>();
 			toppings.add((Toppings) ctx.getBean("getToppingProsciutto"));

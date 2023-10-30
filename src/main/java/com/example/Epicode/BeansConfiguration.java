@@ -70,25 +70,38 @@ public class BeansConfiguration {
 
     }
 
-
-
     @Bean
     MenuItem getPizzaProsciutto() {
         return new Pizza("Prosciutto",getPrices(schinken()),getCaloriess(schinken()),getMenu(),schinken());
-
     }
 
     @Bean
     MenuItem getPizzaAmericana() {
         return new Pizza("Americana",getPrices(american()),getCaloriess(american()),getMenu(),american());
+    }
+    @Bean
+    MenuItem getPizzaMargheritaMaxi() {
+       Pizza margheritaXxl= new Pizza("Margherita ",getPrices(margherit),getCaloriess(margherit),getMenu(),margherit);
+        return new XxlPizza().decorate(margheritaXxl);
+    }
 
+
+    @Bean
+    MenuItem getPizzaProsciuttoMaxi() {
+     Pizza prosciuttoXxl= new Pizza("Prosciutto",getPrices(schinken()),getCaloriess(schinken()),getMenu(),schinken());
+     return new XxlPizza().decorate(prosciuttoXxl);
+    }
+
+    @Bean
+    MenuItem getPizzaAmericanaMaxi() {
+        Pizza prosciuttoXxl=new Pizza("Americana",getPrices(american()),getCaloriess(american()),getMenu(),american());
+        return  new XxlPizza().decorate(prosciuttoXxl);
     }
 
 
     @Bean
     MenuItem getCocaCola() {
         return new Bibite("Coke",3,200,getMenu());
-
     }
     @Bean
     MenuItem getFanta() {
