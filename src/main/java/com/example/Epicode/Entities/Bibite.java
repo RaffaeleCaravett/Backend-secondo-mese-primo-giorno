@@ -18,4 +18,14 @@ public class Bibite extends MenuItem {
     public Bibite( String name, int prezzo, int calories, Menù menu) {
         super( name, prezzo, calories, menu);
     }
+
+
+    @Override
+    public String toString() {
+        return "Bibita {" +
+                  getName() + '\'' +
+                "calories='" + getCalories()+ '\'' +
+                "prezzo='" + getPrezzo() + '\'' +
+                '}';
+    }
 }

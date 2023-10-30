@@ -17,4 +17,15 @@ public class Toppings extends MenuItem {
     public Toppings( String name, int prezzo, int calories, Menù menu) {
         super( name, prezzo, calories, menu);
     }
+
+    @Override
+    public String toString() {
+        return "Topping {"+
+
+                 getName() +
+                " prezzo=" + getPrezzo() +
+                " calories=" + getCalories() +
+                "}";
+    }
+
 }

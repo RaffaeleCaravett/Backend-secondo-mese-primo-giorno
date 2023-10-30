@@ -1,8 +1,13 @@
 package com.example.Epicode;
 
+import com.example.Epicode.Entities.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 @SpringBootApplication
@@ -12,24 +17,36 @@ public class EpicodeApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(EpicodeApplication.class, args);
 
-		// METODO TRADIZIONALE
-
-/*        FrontendStudent f = new FrontendStudent("Aldo Baglio");
-        BackendStudent b = new BackendStudent("Giovanni Storti");
-        FullstackStudent fs = new FullstackStudent("Giacomo Poretti");
-
-        Interviewer i1 = new Interviewer(f);
-        Interviewer i2 = new Interviewer(b);
-        Interviewer i3 = new Interviewer(fs);
-
-        i1.askQuestion();
-        i2.askQuestion();
-        i3.askQuestion();*/
-
-		// configWithXML();
-
-
+configurationClass();
 	}
+
+		public static void configurationClass() {
+			AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext(EpicodeApplication.class);
+
+			List<Pizza> pizze = new ArrayList<>();
+			pizze.add((Pizza) ctx.getBean("getPizzaMargherita"));
+			pizze.add((Pizza) ctx.getBean("getPizzaProsciutto"));
+			pizze.add((Pizza) ctx.getBean("getPizzaAmericana"));
+
+			List<Toppings> toppings = new ArrayList<>();
+			toppings.add((Toppings) ctx.getBean("getToppingProsciutto"));
+			toppings.add((Toppings) ctx.getBean("getToppingWurstel"));
+			toppings.add((Toppings) ctx.getBean("getToppingPatatine"));
+
+			List<Bibite> bibites = new ArrayList<>();
+			bibites.add((Bibite) ctx.getBean("getCocaCola"));
+			bibites.add((Bibite) ctx.getBean("getFanta"));
+			bibites.add((Bibite) ctx.getBean("getSprite"));
+
+			Menù menù = new Menù(1,pizze,bibites,toppings);
+
+			pizze.forEach(System.out::println);
+			toppings.forEach(t -> System.out.println(t.toString()));
+			bibites.forEach(System.out::println);
+			System.out.println(menù.toString());
+
+			ctx.close();
+		}
 
 
 

@@ -26,4 +26,12 @@ public class Pizza extends MenuItem {
         this.toppings=toppings;
     }
 
+    public String toString() {
+        return "Pizza{" +
+                "\n  nome='" + getName() + '\'' +
+                "\n  ingredienti =" + base + toppings +
+                "\n  calories='" + getCalories() + '\'' +
+                "\n  prezzo='" + getPrezzo() + '\'' +
+                "\n}";
+    }
 }
