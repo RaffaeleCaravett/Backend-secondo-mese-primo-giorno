@@ -2,11 +2,14 @@ package com.example.Epicode.Entities;
 
 import com.example.Epicode.Enums.OrderState;
 import lombok.*;
-import org.springframework.context.annotation.PropertySource;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
-
+import org.springframework.beans.factory.annotation.Value;
 import javax.persistence.*;
 import java.time.LocalTime;
+import java.util.Objects;
+
 
 @Getter
 @Setter
@@ -14,8 +17,11 @@ import java.time.LocalTime;
 @AllArgsConstructor
 @ToString
 @Component("ordine_component")
-@PropertySource("application.properties")
+
 public class Ordine {
+
+    @Autowired
+    private Environment env;
 
     @Id
     @GeneratedValue
@@ -37,6 +43,18 @@ public class Ordine {
 
     private double totale;
 
+    @Value("${costo.coperto}")
+    private int costoCoperto;
 
-    
+
+    public void setTotale() {
+
+        int totaleCoperti = costoCoperto*coperti;
+        int totaleMenuItems =  menù.getBibite().stream()
+                .mapToInt(Bibite::getPrezzo).sum()+
+        menù.getPizze().stream()
+                .mapToInt(Pizza::getPrezzo).sum();
+
+        this.totale = totaleCoperti+totaleMenuItems;
+    }
 }

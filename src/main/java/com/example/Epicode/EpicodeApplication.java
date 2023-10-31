@@ -3,6 +3,7 @@ package com.example.Epicode;
 import com.example.Epicode.Entities.*;
 import com.example.Epicode.Enums.OrderState;
 import com.example.Epicode.Enums.Stato;
+import lombok.Value;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -17,10 +18,11 @@ import java.util.List;
 @Slf4j
 public class EpicodeApplication {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception {
 		SpringApplication.run(EpicodeApplication.class, args);
 
 configurationClass();
+runner();
 	}
 
 		public static void configurationClass() {
@@ -54,55 +56,13 @@ configurationClass();
 			ctx.close();
 		}
 
-private static void runner(){
+public static void runner() throws Exception {
 	AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext(EpicodeApplication.class);
-
-	List<Pizza> pizze = new ArrayList<>();
-	pizze.add((Pizza) ctx.getBean("getPizzaMargherita"));
-	//pizze.add((Pizza) ctx.getBean("getPizzaProsciutto"));
-	//pizze.add((Pizza) ctx.getBean("getPizzaAmericana"));
-	//pizze.add((Pizza) ctx.getBean("getPizzaMargheritaMaxi"));
-	//pizze.add((Pizza) ctx.getBean("getPizzaProsciuttoMaxi"));
-	pizze.add((Pizza) ctx.getBean("getPizzaAmericanaMaxi"));
-
-	List<Toppings> toppings = new ArrayList<>();
-	//toppings.add((Toppings) ctx.getBean("getToppingProsciutto"));
-	//toppings.add((Toppings) ctx.getBean("getToppingWurstel"));
-	//toppings.add((Toppings) ctx.getBean("getToppingPatatine"));
-
-	List<Bibite> bibites = new ArrayList<>();
-	bibites.add((Bibite) ctx.getBean("getCocaCola"));
-	//bibites.add((Bibite) ctx.getBean("getFanta"));
-	bibites.add((Bibite) ctx.getBean("getSprite"));
-
-	Menù menù = new Menù(1,pizze,bibites,toppings);
-
-	pizze.forEach(System.out::println);
-	toppings.forEach(t -> System.out.println(t.toString()));
-	bibites.forEach(System.out::println);
-	System.out.println(menù);
-
-
-
-
-
-
-	Tavolo tavolo1 = (Tavolo) ctx.getBean("tavolo_component");
-	tavolo1.setMaxCoperti(4);
-	tavolo1.setStato(Stato.LIBERO);
-
-
-	Ordine ordine1 = (Ordine) ctx.getBean("ordine_component");
-	ordine1.setCoperti(3);
-    ordine1.setStato(OrderState.IN_CORSO);
-	ordine1.setTime(LocalTime.now());
-	ordine1.setTavolo(tavolo1);
-	ordine1.setMenù(menù);
-	ordine1.setTotale();
-
-
-	System.out.println();
-	ctx.close();
+	Runner runner = (Runner) ctx.getBean("runner");
+	try {
+		runner.run();
+	} catch (Exception e) {
+		System.out.println(e.getMessage());
+	}
 }
-
 }
