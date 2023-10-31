@@ -11,7 +11,6 @@ import javax.persistence.*;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString
 @Component("tavolo_component")
 public class Tavolo {
     @Id
@@ -29,6 +28,16 @@ public class Tavolo {
 
     public void setOrdine(Ordine ordine) {
         if(ordine.getCoperti()<=maxCoperti)this.ordine = ordine;
-        else throw new IllegalArgumentException("Questo tavolo è per al massimo " + maxCoperti + (maxCoperti==1?" persona.":"persone"));
+        else throw new IllegalArgumentException("Questo tavolo è per al massimo " + maxCoperti + (maxCoperti==1?" persona.":" persone"));
+    }
+
+    @Override
+    public String toString() {
+        return "Tavolo{" +
+                "id=" + id +
+                ", maxCoperti=" + maxCoperti +
+                ", stato=" + stato +
+                ", ordine=" + ordine.getId() +
+                '}';
     }
 }

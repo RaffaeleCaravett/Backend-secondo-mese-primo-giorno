@@ -8,6 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.context.annotation.ComponentScan;
 
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -16,12 +17,14 @@ import java.util.List;
 
 @SpringBootApplication
 @Slf4j
+@ComponentScan("com.example.Epicode")
 public class EpicodeApplication {
 
 	public static void main(String[] args) throws Exception {
 		SpringApplication.run(EpicodeApplication.class, args);
 
 configurationClass();
+		System.out.println("------------------");
 runner();
 	}
 

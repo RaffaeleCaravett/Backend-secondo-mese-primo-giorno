@@ -1,6 +1,7 @@
 package com.example.Epicode.Entities;
 
 import lombok.*;
+import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
 import java.util.List;
@@ -8,8 +9,8 @@ import java.util.List;
 
 @Getter
 @Setter
-@ToString
 @Entity
+@Component
 public class Menù {
     @Id
     @GeneratedValue

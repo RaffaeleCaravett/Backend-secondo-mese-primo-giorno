@@ -15,7 +15,6 @@ import java.util.Objects;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString
 @Component("ordine_component")
 
 public class Ordine {
@@ -43,9 +42,18 @@ public class Ordine {
 
     private double totale;
 
-    @Value("${costo.coperto}")
     private int costoCoperto;
 
+    public Ordine(long id, Tavolo tavolo, Menù menù, OrderState stato, int coperti, LocalTime time, double totale,   @Value("${costo.coperto}") int costoCoperto) {
+        this.id = id;
+        this.tavolo = tavolo;
+        this.menù = menù;
+        this.stato = stato;
+        this.coperti = coperti;
+        this.time = time;
+        this.totale = totale;
+        this.costoCoperto = costoCoperto;
+    }
 
     public void setTotale() {
 
@@ -56,5 +64,19 @@ public class Ordine {
                 .mapToInt(Pizza::getPrezzo).sum();
 
         this.totale = totaleCoperti+totaleMenuItems;
+    }
+
+    @Override
+    public String toString() {
+        return "Ordine{" +
+                "id=" + id +
+                ", tavolo=" + tavolo.getId() +
+                ", pizze =" + menù.getPizze().toString() +
+                ", bibite =" + menù.getBibite().toString() +
+                ", stato=" + stato +
+                ", coperti=" + coperti +
+                ", time=" + time +
+                ", totale=" + totale +
+                '}';
     }
 }

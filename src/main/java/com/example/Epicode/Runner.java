@@ -27,7 +27,8 @@ public class Runner implements CommandLineRunner {
     }
     @Override
     public void run(String... args) throws Exception {
-        AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext(Runner.class);
+
+        AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext(EpicodeApplication.class);
 
         List<Pizza> pizze = new ArrayList<>();
         pizze.add((Pizza) ctx.getBean("getPizzaMargherita"));
@@ -41,10 +42,6 @@ public class Runner implements CommandLineRunner {
 
         Menù menù = new Menù(1,pizze,bibites,toppings);
 
-        pizze.forEach(System.out::println);
-        toppings.forEach(t -> System.out.println(t.toString()));
-        bibites.forEach(System.out::println);
-        System.out.println(menù);
 
         Tavolo tavolo1 = (Tavolo) ctx.getBean("tavolo_component");
         tavolo1.setMaxCoperti(4);
@@ -52,7 +49,7 @@ public class Runner implements CommandLineRunner {
 
 
         Ordine ordine1 = (Ordine) ctx.getBean("ordine_component");
-        ordine1.setCoperti(3);
+        ordine1.setCoperti(4);
         ordine1.setStato(OrderState.IN_CORSO);
         ordine1.setTime(LocalTime.now());
         ordine1.setTavolo(tavolo1);
@@ -61,8 +58,10 @@ public class Runner implements CommandLineRunner {
         tavolo1.setOrdine(ordine1);
 
         ctx.close();
-
-log.info(menù.toString());
+log.info("Tavolo :");
+log.info(tavolo1.toString());
+log.info("Ordine :");
+log.info(ordine1.toString());
 
     }
 }
