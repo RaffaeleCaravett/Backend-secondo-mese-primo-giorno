@@ -44,8 +44,7 @@ public class Ordine {
 
     private int costoCoperto;
 
-    public Ordine(long id, Tavolo tavolo, Menù menù, OrderState stato, int coperti, LocalTime time, double totale,   @Value("${costo.coperto}") int costoCoperto) {
-        this.id = id;
+    public Ordine( Tavolo tavolo, Menù menù, OrderState stato, int coperti, LocalTime time, double totale,   @Value("${costo.coperto}") int costoCoperto) {
         this.tavolo = tavolo;
         this.menù = menù;
         this.stato = stato;

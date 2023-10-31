@@ -26,42 +26,45 @@ public class Runner implements CommandLineRunner {
         this.ordine = ordine;
     }
     @Override
-    public void run(String... args) throws Exception {
+    public void run(String... args)  {
+        try {
+            AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext(EpicodeApplication.class);
 
-        AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext(EpicodeApplication.class);
+            List<Pizza> pizze = new ArrayList<>();
+            pizze.add((Pizza) ctx.getBean("getPizzaMargherita"));
+            pizze.add((Pizza) ctx.getBean("getPizzaAmericanaMaxi"));
 
-        List<Pizza> pizze = new ArrayList<>();
-        pizze.add((Pizza) ctx.getBean("getPizzaMargherita"));
-        pizze.add((Pizza) ctx.getBean("getPizzaAmericanaMaxi"));
+            List<Toppings> toppings = new ArrayList<>();
 
-        List<Toppings> toppings = new ArrayList<>();
+            List<Bibite> bibites = new ArrayList<>();
+            bibites.add((Bibite) ctx.getBean("getCocaCola"));
+            bibites.add((Bibite) ctx.getBean("getSprite"));
 
-        List<Bibite> bibites = new ArrayList<>();
-        bibites.add((Bibite) ctx.getBean("getCocaCola"));
-        bibites.add((Bibite) ctx.getBean("getSprite"));
-
-        Menù menù = new Menù(1,pizze,bibites,toppings);
-
-
-        Tavolo tavolo1 = (Tavolo) ctx.getBean("tavolo_component");
-        tavolo1.setMaxCoperti(4);
-        tavolo1.setStato(Stato.LIBERO);
+            Menù menù = new Menù(1, pizze, bibites, toppings);
 
 
-        Ordine ordine1 = (Ordine) ctx.getBean("ordine_component");
-        ordine1.setCoperti(4);
-        ordine1.setStato(OrderState.IN_CORSO);
-        ordine1.setTime(LocalTime.now());
-        ordine1.setTavolo(tavolo1);
-        ordine1.setMenù(menù);
-        ordine1.setTotale();
-        tavolo1.setOrdine(ordine1);
+            Tavolo tavolo1 = (Tavolo) ctx.getBean("tavolo_component");
+            tavolo1.setMaxCoperti(4);
+            tavolo1.setStato(Stato.LIBERO);
+            log.info(tavolo1.toString());
 
-        ctx.close();
-log.info("Tavolo :");
-log.info(tavolo1.toString());
-log.info("Ordine :");
-log.info(ordine1.toString());
+            Ordine ordine1 = (Ordine) ctx.getBean("ordine_component");
+            ordine1.setCoperti(4);
+            ordine1.setStato(OrderState.IN_CORSO);
+            ordine1.setTime(LocalTime.now());
+            ordine1.setTavolo(tavolo1);
+            ordine1.setMenù(menù);
+            ordine1.setTotale();
+            tavolo1.setOrdine(ordine1);
 
+            ctx.close();
+            log.info("Tavolo :");
+            log.info(tavolo1.toString());
+            log.info("Ordine :");
+            log.info(ordine1.toString());
+
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
     }
 }

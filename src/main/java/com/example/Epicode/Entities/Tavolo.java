@@ -15,7 +15,7 @@ import javax.persistence.*;
 public class Tavolo {
     @Id
     @GeneratedValue
-    private Long id;
+    private long id;
 
     private int maxCoperti;
     private Stato stato;
@@ -27,7 +27,10 @@ public class Tavolo {
     private Ordine ordine;
 
     public void setOrdine(Ordine ordine) {
-        if(ordine.getCoperti()<=maxCoperti)this.ordine = ordine;
+        if(ordine.getCoperti()<=maxCoperti){
+            this.ordine = ordine;
+            setStato(Stato.OCCUPATO);
+        }
         else throw new IllegalArgumentException("Questo tavolo è per al massimo " + maxCoperti + (maxCoperti==1?" persona.":" persone"));
     }
 
@@ -37,7 +40,7 @@ public class Tavolo {
                 "id=" + id +
                 ", maxCoperti=" + maxCoperti +
                 ", stato=" + stato +
-                ", ordine=" + ordine.getId() +
+                ", ordine=" + (ordine!=null?ordine.getId():" Non ci sono ordini per questo tavolo") +
                 '}';
     }
 }

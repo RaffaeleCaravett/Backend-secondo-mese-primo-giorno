@@ -22,10 +22,12 @@ public class EpicodeApplication {
 
 	public static void main(String[] args) throws Exception {
 		SpringApplication.run(EpicodeApplication.class, args);
-
+		System.out.println();
+		System.out.println("Menù :");
+		System.out.println();
 configurationClass();
-		System.out.println("------------------");
-runner();
+
+;
 	}
 
 		public static void configurationClass() {
@@ -59,13 +61,5 @@ runner();
 			ctx.close();
 		}
 
-public static void runner() throws Exception {
-	AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext(EpicodeApplication.class);
-	Runner runner = (Runner) ctx.getBean("runner");
-	try {
-		runner.run();
-	} catch (Exception e) {
-		System.out.println(e.getMessage());
-	}
-}
+
 }
