@@ -6,6 +6,7 @@ import com.example.Epicode.Enums.Stato;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalTime;
@@ -34,6 +35,11 @@ public class Runner implements CommandLineRunner {
             pizze.add((Pizza) ctx.getBean("getPizzaMargherita"));
             pizze.add((Pizza) ctx.getBean("getPizzaAmericanaMaxi"));
 
+
+            List<Pizza> pizze1 = new ArrayList<>();
+            pizze1.add((Pizza) ctx.getBean("getPizzaProsciutto"));
+            pizze1.add((Pizza) ctx.getBean("getPizzaMargheritaMaxi"));
+
             List<Toppings> toppings = new ArrayList<>();
 
             List<Bibite> bibites = new ArrayList<>();
@@ -42,6 +48,7 @@ public class Runner implements CommandLineRunner {
 
             Menù menù = new Menù(1, pizze, bibites, toppings);
 
+            Menù menù1 = new Menù(1, pizze1, bibites, toppings);
 
             Tavolo tavolo1 = (Tavolo) ctx.getBean("tavolo_component");
             tavolo1.setMaxCoperti(4);
@@ -53,7 +60,7 @@ public class Runner implements CommandLineRunner {
             ordine1.setStato(OrderState.IN_CORSO);
             ordine1.setTime(LocalTime.now());
             ordine1.setTavolo(tavolo1);
-            ordine1.setMenù(menù);
+            ordine1.setMenù(menù1);
             ordine1.setTotale();
             tavolo1.setOrdine(ordine1);
 
